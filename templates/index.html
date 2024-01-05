@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Konelääkäri</title>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+
+</head>
+<body onload="initialize()">
+  <h1>Nettilääkäri</h1>
+  <div id="chatContainer">
+    <label for="userInput">Lähetä viesti nettilääkärille:</label>
+    <input type="text" id="userInput" name="userInput">
+    <button onclick="submitInput()">Lähetä</button>
+  </div>
+
+  <script>
+
+
+
+    function initialize() {
+      var chatContainer = document.getElementById("chatContainer");
+      var botMessageElement = createMessageElement("Apuri: Tarvitsetko apua jonkin asian kanssa? Voin auttaa sinua ongelmissa, jotka liittyvät terveyteesi.", 1);
+      chatContainer.appendChild(botMessageElement);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function submitInput() {
+      document.getElementById("userInput").disabled = true;
+
+      var userInput = document.getElementById("userInput").value.trim();
+      var chatContainer = document.getElementById("chatContainer");
+
+      if (userInput !== "") {
+        var userMessageElement = createMessageElement("Sinä: " + userInput, 0);
+        chatContainer.appendChild(userMessageElement);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
+        document.getElementById("userInput").value = "";
+
+        fetch("/vastaa", {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(userInput),
+          cache: "no-cache",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok) {
+              document.getElementById("userInput").disabled = false;
+              return response.json();
+            } else {
+              throw new Error("Network response was not ok.");
+            }
+          })
+          .then(function (data) {
+            var botMessageElement = createMessageElement("Apuri: " + data, 1);
+            chatContainer.appendChild(botMessageElement);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+          })
+          .catch(function (error) {
+            console.log("Error:", error);
+          });
+      }
+      
+    }
+
+    function createMessageElement(message, osapuoli) {
+      
+      var messageElement = document.createElement("div");
+      if (osapuoli == 0){
+        messageElement.className = "message_user";
+      }
+      else {
+        messageElement.className = "message_bot";
+      }
+      
+      messageElement.textContent = message;
+      return messageElement;
+    }
+  </script>
+</body>
+</html>

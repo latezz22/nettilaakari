@@ -1,0 +1,106 @@
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+
+    label {
+      font-weight: bold;
+      position: fixed;
+      bottom: 11%;
+      left: 30%;
+      z-index: 1;
+    }
+
+    input[type="text"] {
+      position: fixed;
+      width: 32%;
+      padding: 10px;
+      font-size: 16px;
+      bottom: 7%;
+      left: 30%;
+      z-index: 1;
+    }
+
+    button {
+      position: fixed;
+      width: 6%;
+      padding: 10px 20px;
+      font-size: 16px;
+      bottom: 7%;
+      right: 30.5%;
+      z-index: 1;
+    }
+
+    #chatContainer {
+      padding: 10px;
+      width: 40%;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 2px 20px;
+      background-color: rgba(97, 186, 245, 0.219);
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+  #chatContainer::-webkit-scrollbar {
+    display: none;
+    }
+
+/* Hide scrollbar for IE, Edge and Firefox */
+    #chatContainer {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    }
+
+    #body::-webkit-scrollbar {
+      display: none;
+      }
+
+    .message_bot {
+      margin-bottom: 100px;
+      position: relative;
+        width: 250px;
+        word-wrap: break-word;
+        background-color: white;
+        padding: 10px;
+        color: black;
+        border-radius: 10px;
+        margin-bottom: 100px;
+        left: 4%;
+        z-index: 0;
+    }
+    .message_user {
+        position: relative;
+        width: 250px;
+        word-wrap: break-word;
+        background-color: dodgerblue;
+        padding: 10px;
+        color: white;
+        border-radius: 10px;
+        margin-bottom: 100px;
+        left: 73%;
+        z-index: 0;
+
+    }
+
+
+    @media screen and (max-width: 600px) {
+      input[type="text"], button {
+        width: 100%;
+        max-width: none;
+      }
+
+      #chatContainer {
+        width: 100%;
+        max-width: none;
+      }
+    }
